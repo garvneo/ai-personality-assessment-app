@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_APP=run.py
+      - FLASK_ENV=production
+      - OPENROUTER_API_KEY=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
+      - DATABASE_URL=postgresql://postgres:postgres@localhost:5432/personality_db
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=supersecretkey
+    depends_on:
+      - db
+      - redis
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000
+    stdin_open: true
+    tty: true
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=passwordpostgres
+      - POSTGRES_DB=personality_db
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"

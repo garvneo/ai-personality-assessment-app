@@ -1,0 +1,13 @@
+flask
+flask-cors
+flask-sqlalchemy
+flask-migrate
+Flask-JWT-Extended
+Flask-Marshmallow
+marshmallow
+marshmallow-sqlalchemy
+python-dotenv
+httpx
+redis
+reportlab
+psycopg2-binary
